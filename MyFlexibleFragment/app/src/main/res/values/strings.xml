@@ -18,4 +18,7 @@
     <string name="david_moyes">David Moyes</string>
     <string name="choose">Pilih</string>
     <string name="close">Tutup</string>
+
+    <string name="lifestyle">Lifestyle</string>
+    <string name="lifestyle_description">Kategori ini akan berisi produk-produk lifestyle</string>
 </resources>
