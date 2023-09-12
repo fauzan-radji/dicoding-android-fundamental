@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,6 +18,7 @@ import com.google.android.material.snackbar.Snackbar
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private val mainViewModel by viewModels<MainViewModel>()
 
     companion object {
         const val REVIEWER_NAME = "Bruce Wayne"
@@ -29,22 +31,14 @@ class MainActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
-        val mainViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[MainViewModel::class.java]
-
         val layoutManager = LinearLayoutManager(this)
         binding.rvReview.layoutManager = layoutManager
         val itemDecoration = DividerItemDecoration(this, layoutManager.orientation)
         binding.rvReview.addItemDecoration(itemDecoration)
 
-        mainViewModel.restaurant.observe(this) { restaurant ->
-            setRestaurantData(restaurant)
-        }
-        mainViewModel.listReview.observe(this) { listReview ->
-            setReviewData(listReview)
-        }
-        mainViewModel.isLoading.observe(this) { isLoading ->
-            showLoading(isLoading)
-        }
+        mainViewModel.restaurant.observe(this) { setRestaurantData(it) }
+        mainViewModel.listReview.observe(this) { setReviewData(it) }
+        mainViewModel.isLoading.observe(this) { showLoading(it) }
         mainViewModel.snackbarText.observe(this) {
             it.getContentIfNotHandled()?.let { snackbarText ->
                 Snackbar.make(window.decorView.rootView, snackbarText, Snackbar.LENGTH_SHORT).show()
