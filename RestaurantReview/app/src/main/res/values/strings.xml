@@ -5,5 +5,5 @@
     <string name="review">Review</string>
     <string name="write_your_review_here">Write your review here..</string>
     <string name="send">Kirim</string>
-    <string name="review_item_text">%1$s\\n- %2$s</string>
+    <string name="review_item_text">%1$s\n- %2$s</string>
 </resources>

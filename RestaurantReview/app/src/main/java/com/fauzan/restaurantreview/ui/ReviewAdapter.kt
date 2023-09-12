@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.fauzan.restaurantreview.R
 import com.fauzan.restaurantreview.data.response.CustomerReviewsItem
 import com.fauzan.restaurantreview.databinding.ItemReviewBinding
 
@@ -26,7 +27,8 @@ class ReviewAdapter : ListAdapter<CustomerReviewsItem, ReviewAdapter.MyViewHolde
 
     class MyViewHolder(private val binding: ItemReviewBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(review: CustomerReviewsItem) {
-            binding.tvItem.text = "${review.review}\n- ${review.name}"
+            val itemText = itemView.context.resources.getString(R.string.review_item_text, review.review, review.name)
+            binding.tvItem.text = itemText
         }
     }
 
