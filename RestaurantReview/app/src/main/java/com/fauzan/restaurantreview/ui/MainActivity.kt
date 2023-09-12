@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide
 import com.fauzan.restaurantreview.data.response.CustomerReviewsItem
 import com.fauzan.restaurantreview.data.response.Restaurant
 import com.fauzan.restaurantreview.databinding.ActivityMainBinding
+import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity() {
 
@@ -43,6 +44,11 @@ class MainActivity : AppCompatActivity() {
         }
         mainViewModel.isLoading.observe(this) { isLoading ->
             showLoading(isLoading)
+        }
+        mainViewModel.snackbarText.observe(this) {
+            it.getContentIfNotHandled()?.let { snackbarText ->
+                Snackbar.make(window.decorView.rootView, snackbarText, Snackbar.LENGTH_SHORT).show()
+            }
         }
 
         binding.btnSend.setOnClickListener { view ->
