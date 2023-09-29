@@ -3,7 +3,11 @@ package com.fauzan.simplenotif
 import android.Manifest
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
+import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -41,10 +45,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun sendNotification(title: String, message: String) {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://dicoding.com"))
+        val pendingIntent = PendingIntent.getActivity(
+            this,
+            0,
+            intent,
+            PendingIntent.FLAG_IMMUTABLE
+        )
+
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val builder = NotificationCompat.Builder(this, CHANNEL_ID)
+            .setContentIntent(pendingIntent)
             .setContentTitle(title)
             .setSmallIcon(R.drawable.baseline_notifications_active_24)
+            .setLargeIcon(BitmapFactory.decodeResource(resources, R.drawable.baseline_notifications_active_24))
             .setContentText(message)
             .setSubText(getString(R.string.notification_subtext))
 
